@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TransacaoDTO {
+public class TransacaoDto {
 	
 	private String ticker;
 	private BigDecimal preco;

@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
 import br.com.bootcamp.carteira.model.TipoTransacao;
@@ -48,5 +49,8 @@ public class TransacaoFormDTO {
 	@NotNull
 	@JsonEnumDefaultValue
 	private TipoTransacao tipo;
+	
+	@JsonAlias("usuario_id")
+	private Long usuarioId;
 
 }

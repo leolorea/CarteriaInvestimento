@@ -1,39 +1,38 @@
 package br.com.bootcamp.carteira.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-import javax.validation.ValidationException;
-
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.bootcamp.carteira.dto.TransacaoDTO;
+import br.com.bootcamp.carteira.dto.TransacaoDto;
 import br.com.bootcamp.carteira.dto.TransacaoFormDTO;
 import br.com.bootcamp.carteira.model.Transacao;
+import br.com.bootcamp.carteira.repository.TransacaoRepository;
 
 @Service
 public class ServiceTransacoes {
 
-	private List<Transacao> transacoes = new ArrayList<>();
+	@Autowired
+	private TransacaoRepository transacaoRepository;
+	
 	private ModelMapper modelMapper = new ModelMapper();
-
-	public List<TransacaoDTO> listaTransacoes() {
-
+	
+	public List<TransacaoDto> listaTransacoes() {
+		List<Transacao> transacoes = transacaoRepository.findAll();
 		return transacoes
 				.stream()
 				.map(t -> modelMapper
-				.map(t, TransacaoDTO.class))
+				.map(t, TransacaoDto.class))
 				.collect(Collectors.toList());
 	}
 
 	public void cadastrar(TransacaoFormDTO dto) {
 	
 			Transacao transacao = modelMapper.map(dto, Transacao.class);
-			transacoes.add(transacao);
+			transacaoRepository.save(transacao);
 		
 	}
 }
