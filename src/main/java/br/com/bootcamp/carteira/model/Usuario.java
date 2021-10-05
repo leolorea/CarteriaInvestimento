@@ -10,11 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 
 @Getter
 @Setter
+@ToString(exclude = {"senha"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,7 +25,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long  id;
 	private String nome;
 	private String senha;
 	private String login;

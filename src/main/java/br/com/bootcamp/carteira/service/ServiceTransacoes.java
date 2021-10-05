@@ -1,14 +1,15 @@
 package br.com.bootcamp.carteira.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.bootcamp.carteira.dto.TransacaoDto;
-import br.com.bootcamp.carteira.dto.TransacaoFormDTO;
+import br.com.bootcamp.carteira.dto.TransacaoFormDto;
 import br.com.bootcamp.carteira.model.Transacao;
 import br.com.bootcamp.carteira.repository.TransacaoRepository;
 
@@ -20,19 +21,20 @@ public class ServiceTransacoes {
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
-	public List<TransacaoDto> listaTransacoes() {
-		List<Transacao> transacoes = transacaoRepository.findAll();
+	public Page<TransacaoDto> listaTransacoes(Pageable paginacao) {
+		Page<Transacao> transacoes = transacaoRepository.findAll(paginacao);
 		return transacoes
-				.stream()
 				.map(t -> modelMapper
-				.map(t, TransacaoDto.class))
-				.collect(Collectors.toList());
+				.map(t, TransacaoDto.class));
 	}
 
-	public void cadastrar(TransacaoFormDTO dto) {
+	@Transactional
+	public TransacaoDto cadastrar(TransacaoFormDto dto) {
 	
 			Transacao transacao = modelMapper.map(dto, Transacao.class);
+			transacao.setId(null);
 			transacaoRepository.save(transacao);
+			return modelMapper.map(transacao,TransacaoDto.class);
 		
 	}
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioFormDTO {
+public class UsuarioFormDto {
 	
 	@NotEmpty
 	private String nome;

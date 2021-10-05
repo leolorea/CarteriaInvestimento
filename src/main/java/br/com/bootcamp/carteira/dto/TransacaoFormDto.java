@@ -25,7 +25,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TransacaoFormDTO {
+public class TransacaoFormDto {
 	
 	@NotEmpty
 	@NotNull
