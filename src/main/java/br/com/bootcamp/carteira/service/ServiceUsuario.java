@@ -16,7 +16,6 @@ import br.com.bootcamp.carteira.model.Usuario;
 import br.com.bootcamp.carteira.repository.UsuarioRepository;
 
 @Service
-
 public class ServiceUsuario {
 	
 	@Autowired
